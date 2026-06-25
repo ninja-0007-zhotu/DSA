@@ -1,1 +1,1 @@
-<h2>binary-number-with-alternating-bits Notes</h2><hr>[ Time taken: 23m 29s ]
+<h2>binary-number-with-alternating-bits Notes</h2><hr>[ Time taken: 3hrs 54m 51s ]
