@@ -11,20 +11,36 @@
  */
 class Solution {
 public:
-    void dfs(TreeNode* root , int depth , unsigned long long idx , unsigned long long& ans , vector<unsigned long long>& firstIdx){
-        if(!root) return ;
-        if(depth==firstIdx.size()){
-            firstIdx.push_back(idx);
-        }
-        ans = max(ans, idx-firstIdx[depth] + 1);
-
-        dfs(root->left , depth+1 , 2*idx+1 , ans , firstIdx);
-        dfs(root->right , depth+1 , 2*idx+2 , ans , firstIdx);
-    }
     int widthOfBinaryTree(TreeNode* root) {
-        vector<unsigned long long>firstIdx ;
-        unsigned long long ans = 0 ;
-        dfs(root,0,0,ans,firstIdx);
-        return ans ;
+        if (!root) return 0;
+    
+    int ans = 0;
+    queue<pair<TreeNode*, int>> q; 
+    q.push({root, 0});
+    
+    while (!q.empty()) {
+        int size = q.size();
+        int min = q.front().second; 
+        int first, last;
+        
+        for (int i = 0; i < size; i++) {
+            int currIndex = q.front().second - min; 
+            TreeNode* node = q.front().first;
+            q.pop();
+            
+            if (i == 0) first = currIndex;
+            if (i == size - 1) last = currIndex;
+            
+            if (node->left) {
+                q.push({node->left, 2LL * currIndex + 1});
+            }
+            if (node->right) {
+                q.push({node->right, 2LL * currIndex + 2});
+            }
+        }
+        ans = max(ans, last - first + 1);
+    }
+    
+    return ans;
     }
 };
