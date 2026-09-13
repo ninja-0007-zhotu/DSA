@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int numSubarraysWithSum(vector<int>& nums, int goal) {
+        unordered_map<long long,int>mp;
+       mp[0] = 1;
+
+        long long sum = 0;
+        int ans = 0;
+
+        for (int x : nums) {
+
+            sum += x;
+
+            if (mp.count(sum - goal)) {
+                ans += mp[sum - goal];
+            }
+
+            mp[sum]++;
+        }
+
+        return ans;
+
+
+    }
+};
