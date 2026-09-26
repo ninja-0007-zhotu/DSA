@@ -1,15 +1,19 @@
 class Solution {
 public:
     int numFriendRequests(vector<int>& ages) {
-        int n=ages.size();
-        sort(ages.begin(),ages.end());
-        int ans=0;
-        for(int i=0;i<n;i++){
-            if (ages[i] <= 14) continue;
-            int inx=upper_bound(ages.begin(),ages.end(),ages[i]/2 + 7)-ages.begin();
-            int right=upper_bound(ages.begin(), ages.end(), ages[i]) - ages.begin();
-            ans+=max(0,right-inx-1);
+        vector<int> count(121, 0);
+        for (int age : ages) count[age]++;
+        
+        vector<int> prefix(121, 0);
+        for (int i = 1; i <= 120; i++) prefix[i] = prefix[i-1] + count[i];
+        
+        int res = 0;
+        for (int age = 15; age <= 120; age++) { 
+            if (count[age] == 0) continue;
+            int minAge = age / 2 + 7;
+            int total = prefix[age] - prefix[minAge];
+            res += count[age] * (total - 1); 
         }
-        return ans;
+        return res;
     }
 };
