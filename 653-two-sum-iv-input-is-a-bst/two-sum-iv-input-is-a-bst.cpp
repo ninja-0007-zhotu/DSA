@@ -25,7 +25,6 @@ public:
 
             int need = k - node->val;
 
-            // Have I already seen the required value?
             if (st.count(need))
                 return true;
 
