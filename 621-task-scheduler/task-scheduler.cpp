@@ -8,9 +8,7 @@ public:
             mp[ch]++;
         }
 
-        priority_queue<int> pq; //max heap
-        //we want to finish the process which is most occurring (having highest frequency)
-        //so that we don't have to finish in the last with p gaps.
+        priority_queue<int> pq; 
         int time = 0;
         
         for(auto &it : mp) {
@@ -20,9 +18,9 @@ public:
         while(!pq.empty()) {
             vector<int> temp;
             for(int i = 1; i<=p+1; i++) {
-                //filling first p+1 characters
+          
                 if(!pq.empty()) {
-                    temp.push_back(pq.top()-1); //finishing one instance of each process
+                    temp.push_back(pq.top()-1); 
                     pq.pop();
                 }
             }
@@ -32,10 +30,10 @@ public:
                     pq.push(freq);
             }
             
-            if(pq.empty()) //all processes finished
+            if(pq.empty())
                 time += temp.size();
             else
-                time += (p+1); //we finished p+1 tasks above in the loop
+                time += (p+1);
             
         }
         
